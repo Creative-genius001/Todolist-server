@@ -1,5 +1,6 @@
 const { Task } = require("../models/task");
 const { User } = require("../models/user");
+console.log("hello");
 
 //add task to todo
 exports.addTask = async (req, res, next) => {
