@@ -4,13 +4,14 @@ console.log("hello");
 
 //add task to todo
 exports.addTask = async (req, res, next) => {
-	let task = new Task({
-		task: req.body.task,
-		userID: req.body.userid,
+	const { task, userid } = req.body;
+	let newTaskData = new Task({
+		task,
+		userID: userid,
 	});
 
 	try {
-		await task.save();
+		await newTaskData.save();
 		res
 			.status(201)
 			.send("Task successfully added");
