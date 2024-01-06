@@ -11,7 +11,7 @@ const app = express();
 
 app.use(
 	cors({
-		origin: "http://localhost:3001", //https://my-todo-app-ekpn.vercel.app
+		origin: "https://my-todo-app-ekpn.vercel.app",
 	}),
 );
 app.use(express.json());
