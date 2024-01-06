@@ -1,6 +1,5 @@
 const { Task } = require("../models/task");
 const { User } = require("../models/user");
-console.log("hello");
 
 //add task to todo
 exports.addTask = async (req, res, next) => {
@@ -12,11 +11,17 @@ exports.addTask = async (req, res, next) => {
 
 	try {
 		await newTaskData.save();
-		res
-			.status(201)
-			.send("Task successfully added");
+		res.status(201).send({
+			status: "Successful",
+			message: "Task successfully added",
+		});
 	} catch (err) {
-		console.error(err);
+		res
+			.status(500)
+			.send({
+				error:
+					"Server Error: Could not create task",
+			});
 	}
 };
 
@@ -67,7 +72,14 @@ exports.updateTask = async (req, res, next) => {
 exports.getTasks = async (req, res) => {
 	await Task.find({ userID: req.body.userid })
 		.then((result) => res.send(result))
-		.catch((err) => console.log(err));
+		.catch((err) => {
+			res
+				.status(500)
+				.send({
+					error:
+						"Server Error: Could not get tasks",
+				});
+		});
 };
 
 //Complete a task

@@ -87,7 +87,9 @@ router.post("/login", async (req, res) => {
 
 	let user = await User.findOne({ email: email });
 	if (!user) {
-		return res.status(400).send("Not found");
+		return res
+			.status(400)
+			.send({ error: "User not found" });
 	} else {
 		try {
 			let validateUser = await bcrypt.compare(
