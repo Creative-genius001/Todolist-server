@@ -9,9 +9,10 @@ dotenv.config();
 
 const app = express();
 
+//https://tododo-cyan.vercel.app/ http://localhost:3001
 app.use(
 	cors({
-		origin: "https://my-todo-app-ekpn.vercel.app",
+		origin: "https://tododo-cyan.vercel.app",
 	}),
 );
 app.use(express.json());
