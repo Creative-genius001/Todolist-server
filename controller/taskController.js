@@ -16,12 +16,10 @@ exports.addTask = async (req, res, next) => {
 			message: "Task successfully added",
 		});
 	} catch (err) {
-		res
-			.status(500)
-			.send({
-				error:
-					"Server Error: Could not create task",
-			});
+		res.status(500).send({
+			error:
+				"Server Error: Could not create task",
+		});
 	}
 };
 
@@ -42,7 +40,12 @@ exports.deleteTask = async (req, res, next) => {
 exports.updateTask = async (req, res, next) => {
 	const taskID = req.params.id;
 	const updatedTask = req.body.task;
-	if (!updatedTask) {
+	if (updatedTask === "" && !updatedTask) {
+		res
+			.status(500)
+			.send({
+				error: "Task cannot be an empty string",
+			});
 		return;
 	}
 	try {
@@ -56,11 +59,11 @@ exports.updateTask = async (req, res, next) => {
 			},
 			{ new: true },
 		);
+		console.log(task);
 		res
 			.status(200)
 			.send("succesfully updated task details!✔");
 	} catch (err) {
-		console.log(err);
 		return res.status(500).json({
 			status: "Failed",
 			message: err.message,
@@ -73,12 +76,10 @@ exports.getTasks = async (req, res) => {
 	await Task.find({ userID: req.body.userid })
 		.then((result) => res.send(result))
 		.catch((err) => {
-			res
-				.status(500)
-				.send({
-					error:
-						"Server Error: Could not get tasks",
-				});
+			res.status(500).send({
+				error:
+					"Server Error: Could not get tasks",
+			});
 		});
 };
 
